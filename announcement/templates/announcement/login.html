@@ -1,0 +1,12 @@
+{% extends "announcement/base.html" %}
+{% block title %} Login - Page{% endblock title %}
+
+{% block content %}
+    <fieldset>
+        <legend>Login</legend>
+        <form method='post'>
+            {% csrf_token %} {{ form.as_p }}
+            <button type='submit'>Login</button>
+        </form>
+    </fieldset>
+{% endblock content %}
