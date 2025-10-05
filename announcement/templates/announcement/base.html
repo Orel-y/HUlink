@@ -9,22 +9,31 @@
 </head>
 <body>
     <!--Header-->
-    <header>
-        <nav>
+   <header>
+    <nav>
+        <div class="nav-left">
             <ul>
-                <li><a href="{%url 'home'%}">Home &#127968; </a></li>
+                <li><a href="{% url 'home' %}">Home &#127968;</a></li>
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'profile' pk=user.pk %}">&#128100;</a></li>
                     <li><a href="{% url 'announcement_list' %}">Announcement</a></li>
-                    <li><a href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}">Login</a></li>
-                    <li><a href="{% url 'register'%}">Signup</a></li>
+                    <li><a href="{% url 'register' %}">Signup</a></li>
                 {% endif %}
-
             </ul>
-        </nav>
-    </header>
+        </div>
+
+        {% if user.is_authenticated %}
+        <div class="nav-right">
+            <form class="logoutform" method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+        {% endif %}
+    </nav>
+</header>
 
     <!--Main-->
     <main>

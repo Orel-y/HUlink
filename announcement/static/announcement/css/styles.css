@@ -1,3 +1,4 @@
+/* ====== RESET & GLOBAL ====== */
 * {
     margin: 0;
     padding: 0;
@@ -11,6 +12,7 @@ body {
     line-height: 1.6;
 }
 
+/* ====== HEADER & NAVBAR ====== */
 header {
     background-color: #1d354d;
     color: #fff;
@@ -18,17 +20,22 @@ header {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-nav ul {
+nav {
+    display: flex;
+    justify-content: space-between; /* left links left, logout right */
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.nav-left ul {
     list-style: none;
     display: flex;
-    justify-content: flex-start;
     gap: 1.5rem;
-
     font-weight: bolder;
     font-size: larger;
 }
 
-nav ul li a {
+.nav-left ul li a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
@@ -36,19 +43,35 @@ nav ul li a {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.create-announcement {
-    color: #10263a;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 0.5rem 1rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-nav ul li a:hover {
+.nav-left ul li a:hover {
     background-color: #34495e;
     border-radius: 5px;
 }
 
+/* Logout button styling */
+.nav-right .logoutform {
+    display: inline;
+    margin: 0;
+}
+
+.nav-right .logoutform button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: none;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: inherit;
+    transition: background-color 0.3s ease;
+}
+
+.nav-right .logoutform button:hover {
+    background-color: #34495e;
+    border-radius: 5px;
+}
+
+/* Main container */
 main {
     max-width: 900px;
     margin: 2rem auto;
@@ -67,7 +90,7 @@ p {
     margin-bottom: 1rem;
 }
 
-
+/* Footer */
 .site-footer {
     background-color: #1d354d;
     color: white;
@@ -77,7 +100,7 @@ p {
 
 /* ====== FORM STYLING ====== */
 fieldset {
-    border: 2px solid #001f2e;;
+    border: 2px solid #001f2e;
     border-radius: 8px;
     padding: 2rem;
     max-width: 400px;
@@ -139,16 +162,24 @@ form button[type="submit"]:hover {
     background: #33414a;
 }
 
+/* ====== MEDIA QUERIES ====== */
 @media (max-width: 600px) {
-    nav ul {
+    nav {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+    }
+    
+    .nav-left ul {
         flex-direction: column;
         align-items: center;
+    }
+
+    .nav-right {
+        text-align: center;
     }
 
     nav ul li {
         margin-bottom: 0.5rem;
     }
 }
-
-
-
