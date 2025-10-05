@@ -36,6 +36,14 @@ nav ul li a {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.create-announcement {
+    color: #10263a;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 nav ul li a:hover {
     background-color: #34495e;
     border-radius: 5px;
