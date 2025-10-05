@@ -1,13 +1,14 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %}</title>
-    {% load static %}
-    <link rel="stylesheet" href=" {% static 'announcement/static/styles.css' %}">
+    <link rel="stylesheet" href=" {% static 'announcement/css/styles.css' %}">
 </head>
 <body>
+    <!--Header-->
     <header>
         <nav>
             <ul>
@@ -23,6 +24,22 @@
             </ul>
         </nav>
     </header>
-    {% block content %}{% endblock content %}
+
+    <!--Main-->
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+
+    <aside class="sidebar">
+    </aside>
+
+    <!--Fotter-->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; {{ now|date:"Y" }} HUlink. All rights reserved.</p>
+        </div>
+    </footer>
+
+    
 </body>
 </html>
