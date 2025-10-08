@@ -31,7 +31,6 @@ def profile_view(request, pk):
 
     return render(request, 'announcement/profile.html', {"user_profile": user_profile})
 
-#<li><a href="{%url 'announcements'%}">Announcements &#128226; </a></li>
 
 class AnnouncementListView(ListView):
     model = Announcement

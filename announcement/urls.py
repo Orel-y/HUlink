@@ -3,6 +3,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from . import views
 from .views import AnnouncementListView, AnnouncementCreateView
 from django.urls import reverse_lazy
+
 urlpatterns = [
     path('', views.home_view, name='home'),
     path('login/', LoginView.as_view(template_name='announcement/login.html'), name='login'),

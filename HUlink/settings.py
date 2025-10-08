@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'announcement.apps.AnnouncementConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
