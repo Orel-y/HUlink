@@ -9,7 +9,7 @@ class User(AbstractUser):
     )
 
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
-    
+
 class Announcement(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField()
@@ -18,3 +18,12 @@ class Announcement(models.Model):
 
     def __str__(self):
         return f"{self.title} announced by {self.author.first_name}"
+    
+class Comment(models.Model):
+    announcement = models.ForeignKey(Announcement, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"comment by {self.author} on post {self.announcement}"
