@@ -8,13 +8,8 @@ class User(AbstractUser):
         ('teacher', 'Teacher')
     )
 
-    username = None
-    email = models.EmailField(unique=True)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-
+    
 class Announcement(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField()
