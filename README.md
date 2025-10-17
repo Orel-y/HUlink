@@ -86,8 +86,8 @@ The system follows a modular Django architecture with **role-based access contro
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/hulink.git
-cd hulink
+git clone https://github.com/Orel-y/HUlink.git
+cd HUlink
 ```
 
 ### 2️⃣ Create a Virtual Environment
