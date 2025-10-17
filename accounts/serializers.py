@@ -38,8 +38,15 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         role = validated_data.get('role')
         user = CustomUser.objects.create_user(
-            username = validated_data(['username']),
-            email = validated_data(['email']),
-            password = validated_data(['password']),
+            username = validated_data['username'],
+            email = validated_data['email'],
+            password = validated_data['password'],
             role = role
         )
+
+        if user.role == 'student':
+            Student.objects.create(user=user, department='', year_of_study=1)
+        elif user.role == 'staff':
+            Staff.objects.create(user=user, position='', department='')
+
+        return user
