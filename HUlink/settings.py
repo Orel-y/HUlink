@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'rest_framework_simplejwt',
     'community.apps.CommunityConfig',
+    'discipline.apps.DisciplineConfig',
 ]
 
 MIDDLEWARE = [

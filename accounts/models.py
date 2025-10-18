@@ -21,9 +21,7 @@ class CustomUser(AbstractUser):
 
 
 class Student(models.Model):
-    user = models.OneToOneField(CustomUser,
-                                on_delete=models.CASCADE,
-                                related_name='student_profile')
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='student_profile')
     department = models.CharField(max_length=50)
     year_of_study = models.IntegerField(default=1)
     points = models.IntegerField(default=0)
@@ -33,9 +31,7 @@ class Student(models.Model):
 
 
 class Staff(models.Model):
-    user = models.OneToOneField(CustomUser,
-                                on_delete=models.CASCADE,
-                                related_name='staff_profile')
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='staff_profile')
     position = models.CharField(max_length=50)
     department = models.CharField(max_length=100)
 
@@ -49,12 +45,8 @@ class Mentor(models.Model):
         ('approved', 'Approved'),
         ('completed', 'Completed')
     )
-    staff = models.ForeignKey(Staff,
-                              on_delete=models.CASCADE,
-                              related_name='mentor_staff')
-    student = models.ForeignKey(Student,
-                                on_delete=models.CASCADE,
-                                related_name='mentor_student')
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE, related_name='mentor_staff')
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='mentor_student')
     status = models.CharField(max_length=20,
                               choices=MentorStatusChoices,
                               default='pending')
