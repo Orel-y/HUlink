@@ -1,7 +1,11 @@
+Perfect! Here’s an **updated version of your README.md** in the same style, incorporating the new features we have implemented so far (Community: Petitions, Announcements, Comments; Discipline management basic structure) and keeping your formatting consistent:
+
+---
+
 # 🌐 HUlink – Hawassa University Digital Connection Platform
 
 HUlink (Hawassa University Link) is a web-based communication and management platform built to strengthen the relationship between **students**, **staff**, and **mentors** within the university community.
-It replaces manual workflows with a seamless digital experience for announcements, petitions, mentorship, and academic engagement.
+It replaces manual workflows with a seamless digital experience for announcements, petitions, mentorship, discipline management, and academic engagement.
 
 ---
 
@@ -26,7 +30,7 @@ It replaces manual workflows with a seamless digital experience for announcement
 
 * Bridge communication gaps between **students** and **university staff**
 * Encourage mentorship and academic support
-* Provide a digital space for **announcements**, **petitions**, and **feedback**
+* Provide a digital space for **announcements**, **petitions**, **comments**, and **discipline reports**
 * Reduce paperwork and enable accountability in all university activities
 
 The system follows a modular Django architecture with **role-based access control** and **JWT authentication**.
@@ -41,6 +45,8 @@ The system follows a modular Django architecture with **role-based access contro
 | **Authentication**   | Secure login, registration, and logout using JWT tokens                |
 | **Profiles**         | Separate models for `Student`, `Staff`, and `Mentor`                   |
 | **Mentorship**       | Link staff with students for academic guidance                         |
+| **Community**        | Students and staff can create petitions, announcements, and comments   |
+| **Discipline**       | Students can submit reports; staff can review and update status        |
 | **API-Ready**        | RESTful endpoints built using Django REST Framework                    |
 | **Role-Based Views** | Different access privileges depending on user type                     |
 
@@ -51,20 +57,21 @@ The system follows a modular Django architecture with **role-based access contro
 **App Structure**
 
 * `accounts/` → User registration, authentication, and profiles
-* *(Coming soon)* `community/` → Announcements, Comments, and Petitions
-* *(Coming soon)* `discipline/` → Discipline reports and follow-ups
+* `community/` → Announcements, Comments, and Petitions
+* `discipline/` → Discipline reports and follow-ups
 
 **Database Models**
 
-| Model                         | Description                                                   |
-| ----------------------------- | ------------------------------------------------------------- |
-| **CustomUser**                | Extends Django’s `AbstractUser`; adds a `role` field          |
-| **Student**                   | One-to-one with `CustomUser`; includes year, department, etc. |
-| **Staff**                     | One-to-one with `CustomUser`; stores staff position           |
-| **Mentor**                    | Connects `Staff` and `Student` models                         |
-| **Announcement** *(upcoming)* | Created by staff to inform students                           |
-| **Comment** *(upcoming)*      | Users comment on announcements or petitions                   |
-| **Petition** *(upcoming)*     | Students submit issues anonymously or publicly                |
+| Model                | Description                                                     |
+| -------------------- | --------------------------------------------------------------- |
+| **CustomUser**       | Extends Django’s `AbstractUser`; adds a `role` field            |
+| **Student**          | One-to-one with `CustomUser`; includes year, department, points |
+| **Staff**            | One-to-one with `CustomUser`; stores staff position             |
+| **Mentor**           | Connects `Staff` and `Student` models                           |
+| **Announcement**     | Created by staff to inform students                             |
+| **Comment**          | Users comment on announcements or petitions                     |
+| **Petition**         | Students submit issues anonymously or publicly                  |
+| **DisciplineReport** | Reports submitted by students and managed by staff              |
 
 ---
 
@@ -158,26 +165,38 @@ Now open **[http://127.0.0.1:8000/](http://127.0.0.1:8000/)** to access HUlink.
 | **GET** | `/api/accounts/mentors/`      | List all mentorships |
 | **GET** | `/api/accounts/mentors/<id>/` | Mentor detail view   |
 
+### 📢 Community
+
+| Method   | Endpoint                        | Description                             |
+| -------- | ------------------------------- | --------------------------------------- |
+| **POST** | `/api/community/petitions/`     | Create petition                         |
+| **GET**  | `/api/community/petitions/`     | List petitions                          |
+| **POST** | `/api/community/announcements/` | Create announcement                     |
+| **GET**  | `/api/community/announcements/` | List announcements                      |
+| **POST** | `/api/community/comments/`      | Add comment to petition or announcement |
+| **GET**  | `/api/community/comments/`      | List comments                           |
+
+### 📝 Discipline Management
+
+| Method   | Endpoint                               | Description                        |
+| -------- | -------------------------------------- | ---------------------------------- |
+| **POST** | `/api/discipline/reports/`             | Submit discipline report (student) |
+| **GET**  | `/api/discipline/reports/all/`         | List all reports (staff)           |
+| **PUT**  | `/api/discipline/reports/<id>/status/` | Update report status (staff)       |
+
 ---
 
 ## 🔒 Authentication Flow
 
-1. **Register**
-   → User chooses a role (student, staff, or mentor).
-   → Profile is created automatically based on role.
+1. **Register** → User chooses a role (student, staff, or mentor). Profile is created automatically.
+2. **Login** → Receive `access` and `refresh` JWT tokens.
+3. **Access Protected Routes** → Add header:
 
-2. **Login**
-   → Get `access` and `refresh` JWT tokens.
+```http
+Authorization: Bearer <access_token>
+```
 
-3. **Access Protected Routes**
-   → Add header:
-
-   ```http
-   Authorization: Bearer <access_token>
-   ```
-
-4. **Logout**
-   → Send `refresh` token to `/logout/` endpoint to blacklist it.
+4. **Logout** → Send `refresh` token to `/logout/` endpoint to blacklist it.
 
 ---
 
@@ -191,7 +210,16 @@ hulink/
 │   ├── serializers.py
 │   ├── urls.py
 │   └── permissions.py
-├── community/           # (Planned: announcements, comments, petitions)
+├── community/
+│   ├── models.py
+│   ├── views.py
+│   ├── serializers.py
+│   └── urls.py
+├── discipline/
+│   ├── models.py
+│   ├── views.py
+│   ├── serializers.py
+│   └── urls.py
 ├── hulink/
 │   ├── settings.py
 │   ├── urls.py
@@ -204,16 +232,14 @@ hulink/
 
 ## 🧭 Roadmap (Next Steps)
 
-**Goal: Communication and Feedback Modules**
-
-| Feature                   | Description                          | Status     |
-| ------------------------- | ------------------------------------ | ---------- |
-| **Announcements**         | Staff post updates, events, and info | 🟡 Planned |
-| **Comments**              | Students comment on posts            | 🟡 Planned |
-| **Petitions**             | Students submit issues or requests   | 🟡 Planned |
-| **Discipline Management** | Report & track student behavior      | ⚪ Planned  |
-| **Frontend (React)**      | User-friendly UI                     | ⚪ Planned  |
-| **Dockerization**         | Deployment setup                     | ⚪ Planned  |
+| Feature                   | Description                          | Status              |
+| ------------------------- | ------------------------------------ | ------------------- |
+| **Announcements**         | Staff post updates, events, and info | 🟢 Implemented      |
+| **Comments**              | Users comment on posts               | 🟢 Implemented      |
+| **Petitions**             | Students submit issues or requests   | 🟢 Implemented      |
+| **Discipline Management** | Report & track student behavior      | ⚪ Planned / partial |
+| **Frontend (React)**      | User-friendly UI                     | ⚪ Planned           |
+| **Dockerization**         | Deployment setup                     | ⚪ Planned           |
 
 ---
 
@@ -225,3 +251,7 @@ hulink/
 📬 *Building HUlink to bridge students and staff through technology.*
 
 ---
+
+If you want, I can also **add a diagram showing the relationships** between Users ↔ Community ↔ Discipline modules, which will make this README look more professional for your demo.
+
+Do you want me to do that next?
