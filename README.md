@@ -1,7 +1,3 @@
-Perfect! Here’s an **updated version of your README.md** in the same style, incorporating the new features we have implemented so far (Community: Petitions, Announcements, Comments; Discipline management basic structure) and keeping your formatting consistent:
-
----
-
 # 🌐 HUlink – Hawassa University Digital Connection Platform
 
 HUlink (Hawassa University Link) is a web-based communication and management platform built to strengthen the relationship between **students**, **staff**, and **mentors** within the university community.
@@ -59,6 +55,10 @@ The system follows a modular Django architecture with **role-based access contro
 * `accounts/` → User registration, authentication, and profiles
 * `community/` → Announcements, Comments, and Petitions
 * `discipline/` → Discipline reports and follow-ups
+
+## 🗄️ Database Schema
+
+![HUlink Database Schema](HULink DB.drawio.png)
 
 **Database Models**
 
@@ -250,8 +250,3 @@ hulink/
 💡 Aspiring System Architect | Backend Developer
 📬 *Building HUlink to bridge students and staff through technology.*
 
----
-
-If you want, I can also **add a diagram showing the relationships** between Users ↔ Community ↔ Discipline modules, which will make this README look more professional for your demo.
-
-Do you want me to do that next?
