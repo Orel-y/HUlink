@@ -58,7 +58,7 @@ The system follows a modular Django architecture with **role-based access contro
 
 ## 🗄️ Database Schema
 
-![HUlink Database Schema](HULink DB.drawio.png)
+![HUlink Database Schema](HULinkdbSchema.png)
 
 **Database Models**
 
