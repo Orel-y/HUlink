@@ -3,7 +3,8 @@ from .views import (
     RegisterAPIView, LoginAPIView, LogoutAPIView,
     StudentListAPIView, StudentDetailAPIView,
     StaffListAPIView, StaffDetailAPIView,
-    MentorListAPIView
+    MentorListAPIView,
+    ProfileView
 )
 
 urlpatterns = [
@@ -16,4 +17,5 @@ urlpatterns = [
     path('staff/', StaffListAPIView.as_view(), name='staff-list'),
     path('staff/<int:pk>/', StaffDetailAPIView.as_view(), name='staff-detail'),
     path('mentors/', MentorListAPIView.as_view(), name='mentor-list'),
+    path('profile/', ProfileView.as_view(), name='user-profile'),
 ]
